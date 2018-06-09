@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<rss version="2.0" 
+    xml:base="http://www.nasa.gov/" 
+    xmlns:atom="http://www.w3.org/2005/Atom" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" 
+    xmlns:media="http://search.yahoo.com/mrss/"> 
+    
+    <channel> 
+        <title>RssTitle</title>
+        <description>RssDescription</description>
+        <link>RssLink</link>
+        <language>en-us</language>
+        <managingEditor>RssExample@example.com</managingEditor>
+        <webMaster>RssExample@example.com</webMaster>
+        <docs>http://example.com</docs>
+        <item>
+            <title>RssItemTitle</title>
+            <link>RssItemLink</link>
+            <description>RssDescription</description>
+            <enclosure url="RssItemEnclosureUrl" length="RssItemEnclosureLength" type="RssItemEnclosureType" />
+            <guid isPermaLink="false">RssItemGuid</guid>
+            <pubDate>RssItemPubDate</pubDate>
+            <source url="RssItemSourceUrl">RssItemSource</source>
+        </item>
+        <item>
+            <title>RssItemTitle</title>
+            <link>RssItemLink</link>
+            <description>RssDescription</description>
+            <enclosure url="RssItemEnclosureUrl" length="RssItemEnclosureLength" type="RssItemEnclosureType" />
+            <guid isPermaLink="false">RssItemGuid</guid>
+            <pubDate>RssItemPubDate</pubDate>
+            <source url="RssItemSourceUrl">RssItemSource</source>
+        </item>
+    </channel>
+</rss>
