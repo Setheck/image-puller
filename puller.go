@@ -35,7 +35,7 @@ func readBytesFromBody(resp *http.Response) []byte {
 	return body
 }
 
-//RetrieveResource get a remote resource.
+//RetrieveResource get a remote resource and labe with type.
 func RetrieveResource(url string, t string) *RemoteResource {
 	log.Printf("Retrieiving %q from %q", t, url)
 	splitName := strings.Split(url, "/")
@@ -46,7 +46,7 @@ func RetrieveResource(url string, t string) *RemoteResource {
 	}
 }
 
-//SaveResource save the resource to a file.
+//SaveResource save the file modeled by the resource to a directory.
 func (r *RemoteResource) SaveResource(targetDirectory string) error {
 	absoluteFileName := targetDirectory + string(filepath.Separator) + r.Filename
 	log.Printf("Attempting to save file %q", absoluteFileName)
