@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strings"
 	"bufio"
 	"flag"
 	"fmt"
@@ -20,6 +21,21 @@ var (
 const DefaultFeed = "https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss"
 
 func main() {
+	if parseArgs() {
+		fullTargetFilePath, _ = filepath.Abs(*targetDirectory)
+		if confirmFullFilePathAndFeed(fullTargetFilePath, *targetFeed) {
+			feed := RetrieveResource(*targetFeed, "feed")
+			enclosures := EnclosureUrlsFromRssBytes(feed.Data)
+
+			for _, enc := range enclosures[0:*maxImages] {
+				resource := RetrieveResource(enc.URL, enc.Type)
+				resource.SaveResource(fullTargetFilePath)
+			}
+		}
+	}
+}
+
+func parseArgs() bool {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) == 1 {
@@ -27,28 +43,18 @@ func main() {
 	}
 	if *targetDirectory == "" {
 		log.Fatal("Error: TargetDirectory is required.")
-		os.Exit(1)
+		return false
 	}
-	fullTargetFilePath, _ = filepath.Abs(*targetDirectory)
-	fmt.Printf("This will save images from %q to %q do you wish to continue? (y/N): ", *targetFeed, fullTargetFilePath)
+	return true
+}
+
+func confirmFullFilePathAndFeed(path, feed string) bool {
+	fmt.Printf("This will save images from %q to %q do you wish to continue? (y/N): ", feed, path)
 	reader := bufio.NewReader(os.Stdin)
 	char, _, err := reader.ReadRune()
 	if err != nil {
 		log.Fatal("Error: reading input")
-		os.Exit(1)
 	}
-	if char == 'y' || char == 'Y' && false {
-		feed := RetrieveResource(*targetFeed, "feed")
-		enclosures := EnclosureUrlsFromRssBytes(feed.Data)
 
-		var saveCount int
-		for _, enc := range enclosures {
-			if saveCount >= *maxImages {
-				break
-			}
-			resource := RetrieveResource(enc.URL, enc.Type)
-			resource.SaveResource(fullTargetFilePath)
-			saveCount++
-		}
-	}
+	return strings.ToUpper(string(char)) == "Y"
 }
