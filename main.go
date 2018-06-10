@@ -29,7 +29,9 @@ func main() {
 
 			for _, enc := range enclosures[0:*maxImages] {
 				resource := RetrieveResource(enc.URL, enc.Type)
-				resource.SaveResource(fullTargetFilePath)
+				if err := resource.SaveResource(fullTargetFilePath); err != nil {
+					log.Fatalf("Error saving resource: %s", err)
+				}
 			}
 		}
 	}
