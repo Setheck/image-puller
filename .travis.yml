@@ -5,5 +5,5 @@ go:
   - master
 
 script:
-  - go test./puller
-  - go test./rssparse
+  - go test ./puller
+  - go test ./rssparse
