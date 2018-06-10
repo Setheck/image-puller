@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/setheck/image-puller/rssparse"
 	"bufio"
 	"flag"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/setheck/image-puller/rssparse"
 
 	"github.com/setheck/image-puller/puller"
 )
@@ -43,9 +44,15 @@ func main() {
 	if char == 'y' || char == 'Y' && false {
 		feed := puller.RetrieveResource(*targetFeed, "feed")
 		enclosures := rssparse.EnclosureUrlsFromRssBytes(feed.Data)
+
+		var saveCount int
 		for _, enc := range enclosures {
+			if saveCount >= *maxImages {
+				break
+			}
 			resource := puller.RetrieveResource(enc.URL, enc.Type)
 			resource.SaveResource(fullTargetFilePath)
+			saveCount++
 		}
 	}
 }
