@@ -1,12 +1,10 @@
-package puller_test
+package main
 
 import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/setheck/image-puller/puller"
 )
 
 func TestRetrieveResources(t *testing.T) {
@@ -21,7 +19,7 @@ func TestRetrieveResources(t *testing.T) {
 			}))
 	defer testServer.Close()
 
-	resource := puller.RetrieveResource(testServer.URL+"/"+testFileName, testFileType)
+	resource := RetrieveResource(testServer.URL+"/"+testFileName, testFileType)
 	if resource.Filename != testFileName {
 		t.Errorf("Expected Filename: %q, got %q", testFileName, resource.Filename)
 	}

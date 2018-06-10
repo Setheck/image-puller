@@ -1,4 +1,4 @@
-package rssparse
+package main
 
 import (
 	"encoding/xml"
