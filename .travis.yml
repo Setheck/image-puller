@@ -7,3 +7,7 @@ go:
 install:
   - go get github.com/setheck/image-puller/puller
   - go get github.com/setheck/image-puller/rssparse
+
+script:
+  - go test./puller
+  - go test./rssparse
