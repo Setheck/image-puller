@@ -1,0 +1,11 @@
+language: go
+
+go:
+  - "1.10"
+  - master
+
+before_install:
+    - go get github.com/setheck/image-puller
+
+script:
+  - go test -v ./...
