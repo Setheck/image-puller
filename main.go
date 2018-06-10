@@ -39,8 +39,7 @@ func main() {
 
 func parseArgs() bool {
 	flag.Parse()
-	args := flag.Args()
-	if len(args) == 1 {
+	if args := flag.Args(); len(args) == 1 {
 		*targetDirectory = args[0]
 	}
 	if *targetDirectory == "" {
@@ -52,11 +51,9 @@ func parseArgs() bool {
 
 func confirmFullFilePathAndFeed(path, feed string) bool {
 	fmt.Printf("This will save images from %q to %q do you wish to continue? (y/N): ", feed, path)
-	reader := bufio.NewReader(os.Stdin)
-	char, _, err := reader.ReadRune()
+	char, _, err := bufio.NewReader(os.Stdin).ReadRune()
 	if err != nil {
 		log.Fatal("Error: reading input")
 	}
-
 	return strings.ToUpper(string(char)) == "Y"
 }
